@@ -1,4 +1,17 @@
-const API_URL = `http://www.omdbapi.com/?apikey=4d6e20f8&s=`
+
+
+function reqestmovis(neme) {
+    const pubkey = "51ae40158bbc267a3e277fbabf97ca78";
+    const pvtkey = "9918c7f8f45a5917dc5be7cb63ee759e4b2166f9";
+    const ts = new Date().getTime();
+
+    const message = ts + pvtkey + pubkey;
+
+    const hash = CryptoJS.MD5(message).toString();
+
+    return `https://gateway.marvel.com:443/v1/public/characters?name=${neme}&ts=${ts}&apikey=${pvtkey}&hash=${hash}`;
+
+}
 const ELEMNT = {
     $from: $(`#movisSearch`),
     $results: $('#results')
@@ -33,15 +46,17 @@ function aadevent() {
 function sendrequst(movisName) {
 
     let movis = []
-    const url = API_URL + movisName
-
+    // const url = API_URL.replace("**", movisName);
+    const url = reqestmovis(movisName)
+    console.log("hello");
+    console.log(url);
     $.get(url, (data) => {
         if (data?.Search) {
 
             movis = [...data.Search];
-
-            sortByDate(movis);
-            movis.forEach(rendercard);
+            console.log(movis);
+            // sortByDate(movis);
+            // movis.forEach(rendercard);
         }
     });
 
