@@ -1,19 +1,36 @@
-.peg{
-    margin: 5px auto;
-    width: 50%;
+.peg {
+  margin: 5px auto;
+  width: 50%;
 }
-.titlePeg{
-margin-bottom:20px ;
+.titlePeg {
+  margin-bottom: 20px;
 }
-.movisSearch{
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.movisSearch {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.text {
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.results {
+  margin-top: 10px;
+  /* display: flex; */
+  flex-direction: row
+}
+.Character{
+  height: 400px;
+  width: 200px;
+}
+.img{
+    height: 50%;
+    width: 100%;
 }
 .text{
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    height: 50%;
+    width: 100%; 
 }

@@ -9,7 +9,7 @@ function reqestmovis(neme) {
 
     const hash = CryptoJS.MD5(message).toString();
 
-    return `https://gateway.marvel.com:443/v1/public/characters?name=${neme}&ts=${ts}&apikey=${pvtkey}&hash=${hash}`;
+    return `https://gateway.marvel.com:443/v1/public/characters?&ts=${ts}&apikey=${pubkey}&hash=${hash}&nameStartsWith=${neme}`;
 
 }
 const ELEMNT = {
@@ -36,8 +36,9 @@ function aadevent() {
             taitel: fromEl.movisName.value
         }
         sendrequst(movis.taitel);
-    })
 
+        fromEl.reset();
+    })
 }
 
 
@@ -45,21 +46,20 @@ function aadevent() {
 
 function sendrequst(movisName) {
 
-    let movis = []
-    // const url = API_URL.replace("**", movisName);
+    let movis = {}
+
     const url = reqestmovis(movisName)
     console.log("hello");
     console.log(url);
     $.get(url, (data) => {
-        if (data?.Search) {
+        movis = [...data.data.results];
+        console.log(movis);
+        movis.forEach(element => {
 
-            movis = [...data.Search];
-            console.log(movis);
-            // sortByDate(movis);
-            // movis.forEach(rendercard);
-        }
+            rendercard(element);
+        });
+
     });
-
 
 
 }
@@ -80,12 +80,17 @@ function sortByDate(movis) {
 
 const rendercard = (movis) => {
     const el = document.createElement("div");
-
     el.innerHTML = `
-    <img src="${movis.Poster}">
-    <h3>${movis.Title}</h3>
-    <p> ${movis.Year}</p>
-      `;
+    <a href="${movis.urls[0].url}">
+    <img class="img" src="${movis.thumbnail.path}/portrait_xlarge.jpg">
+    </a>
+    <h3>${movis.name}</h3>
+    <p class = 'text'> ${movis.description}</p>
+    <P >comics : ${movis.comics.available}</P>
+    
+    `;
+
+    el.classList.add('Character')
     document.querySelector("#results").appendChild(el)
 };
 
